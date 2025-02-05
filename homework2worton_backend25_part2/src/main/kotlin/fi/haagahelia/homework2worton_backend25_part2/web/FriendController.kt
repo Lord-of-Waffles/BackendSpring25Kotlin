@@ -1,3 +1,6 @@
+package fi.haagahelia.homework2worton_backend25_part2.web
+
+
 import fi.haagahelia.homework2worton_backend25_part2.domain.Friend
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
