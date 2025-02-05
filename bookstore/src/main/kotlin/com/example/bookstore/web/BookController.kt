@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PathVariable
 
 @Controller
 class BookController {
@@ -21,6 +24,24 @@ class BookController {
         )
         model.addAttribute("books", books)
         return "index"
+    }
+
+    @RequestMapping("/add")
+    fun addBook(model: Model): String {
+        model.addAttribute("book", Book())
+        return "addbook"
+    }
+
+    @RequestMapping("/delete/{id}")
+    fun deleteBook(@PathVariable id: Long, model: Model): String {
+        repository.deleteById(id)
+        return "redirect:/booklist"
+    }
+
+    @PostMapping("/save")
+    fun save(book: Book): String {
+        repository.save(book)
+        return "redirect:booklist"
     }
 
     @GetMapping("/booklist")
