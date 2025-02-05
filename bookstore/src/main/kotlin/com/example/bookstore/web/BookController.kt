@@ -40,8 +40,27 @@ class BookController {
 
     @PostMapping("/save")
     fun save(book: Book): String {
-        repository.save(book)
-        return "redirect:booklist"
+        if (book.id != null) {
+            val existingBook = repository.findById(book.id!!).orElse(null)
+            if (existingBook != null) {
+                existingBook.title = book.title
+                existingBook.author = book.author
+                existingBook.publicationYear = book.publicationYear
+                existingBook.isbn = book.isbn
+                existingBook.price = book.price
+                repository.save(existingBook)  
+            }
+        } else {
+            repository.save(book)
+        }
+        return "redirect:/booklist"
+    }
+    
+
+    @RequestMapping("/edit/{id}")
+    fun editBook(@PathVariable id: Long, model: Model): String {
+        model.addAttribute("book", repository.findById(id).get())
+        return "editbook"
     }
 
     @GetMapping("/booklist")
