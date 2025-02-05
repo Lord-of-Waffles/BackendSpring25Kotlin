@@ -1,3 +1,17 @@
 package com.example.bookstore.domain
 
-data class Book(val title: String, val author: String, val publicationYear: Int, val isbn: String, val price: Double)
+import jakarta.persistence.*
+
+@Entity
+@Table(name = "books")
+data class Book(
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long? = null,  // Nullable ID for auto-generation
+
+    var title: String,
+    var author: String,
+    var publicationYear: Int,
+    var isbn: String,
+    var price: Double
+)

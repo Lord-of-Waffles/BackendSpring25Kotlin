@@ -11,8 +11,8 @@ class BookController {
     @GetMapping("/index")
     fun index(model: Model): String {
         val books = listOf(
-            Book("A Farewell to Arms", "Ernest Hemingway", 1929, "1232323-21", 16.99),
-            Book("Animal Farm", "George Orwell", 1945, "2212343-5", 14.99),
+            Book(id = null, title = "A Farewell to Arms", author = "Ernest Hemingway", publicationYear = 1929, isbn = "1232323-21", price = 16.99),
+            Book(id = null, title = "Animal Farm", author = "George Orwell", publicationYear = 1945, isbn = "2212343-5", price = 14.99)
         )
         model.addAttribute("books", books)
         return "index"
