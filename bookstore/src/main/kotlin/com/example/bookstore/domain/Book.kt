@@ -7,13 +7,19 @@ import jakarta.persistence.*
 data class Book(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long? = null,  // Nullable ID for auto-generation
+    var bookId: Long? = null,
 
     var title: String = "",
     var author: String = "",
     var publicationYear: Int = 0,
     var isbn: String = "",
-    var price: Double = 0.0
+    var price: Double = 0.0,
+
+    @Transient
+    var categoryId: Long? = null,
+
+    @ManyToOne @JoinColumn(name = "category_id")
+    var category: Category? = null
 ) {
-    constructor() : this(null, "", "", 0, "", 0.0)
+    constructor() : this(null, "", "", 0, "", 0.0, null, null)
 }

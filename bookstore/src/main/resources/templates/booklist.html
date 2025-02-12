@@ -2,40 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Bookstore</title>
+    <title>Book List</title>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+
 </head>
 
 <body>
     <div class="container">
-        <h1>Bookstore (booklist)</h1>
+
+        <h1>Bookstore (Booklist)</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Author</th>
-                    <th>Year</th>
-                    <th>Isbn</th>
+                    <th>Publication Year</th>
+                    <th>ISBN</th>
                     <th>Price</th>
+                    <th>Category</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="book : ${books}">
-                    <td th:text="${book.title}">Title</td>
-                    <td th:text="${book.author}">Author</td>
-                    <td th:text="${book.publicationYear}">Year</td>
-                    <td th:text="${book.isbn}">Isbn</td>
-                    <td th:text="${book.price}">Price</td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publicationYear}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.price}"></td>
+                    <td th:text="${book.category?.name}"></td>
                     <td>
-                        <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a>
-                        <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a>
+                        <a th:href="@{/edit/{bookId}(bookId=${book.bookId})}" class="btn btn-primary">Edit</a>
+                        <a th:href="@{/delete/{bookId}(bookId=${book.bookId})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             </tbody>
         </table>
         <a href="/add" class="btn btn-success">Add Book</a>
-    </div>
+
 </body>
 
 </html>
