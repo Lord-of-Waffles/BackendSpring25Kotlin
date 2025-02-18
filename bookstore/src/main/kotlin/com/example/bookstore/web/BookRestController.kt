@@ -16,7 +16,7 @@ class BookRestController @Autowired constructor(private val bookRepository: Book
     @RequestMapping("/books", method = [RequestMethod.GET])
     @ResponseBody
     fun getBooks(): List<Book> {
-        return bookRepository.findAll()
+        return bookRepository.findAll().toList()
     }
 
     @RequestMapping("/books/{id}", method = [RequestMethod.GET])
