@@ -5,15 +5,21 @@ import com.example.bookstore.domain.Book
 import com.example.bookstore.domain.BookRepository
 import com.example.bookstore.domain.Category
 import com.example.bookstore.domain.CategoryRepository
+import com.example.bookstore.domain.User
+import com.example.bookstore.domain.UserRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 class DatabaseInitializer {
 
     @Bean
-    fun initDatabase(bookRepository: BookRepository, categoryRepository: CategoryRepository) = CommandLineRunner {
+    fun initDatabase(bookRepository: BookRepository,
+                    categoryRepository: CategoryRepository,
+                    userRepository: UserRepository,
+                    passwordEncoder: PasswordEncoder) = CommandLineRunner {
         if (categoryRepository.count() == 0L) {
             val category1 = Category(categoryId = null, name = "Fiction")
             val category2 = Category(categoryId = null, name = "Non-Fiction")
@@ -31,6 +37,23 @@ class DatabaseInitializer {
 
             bookRepository.saveAll(listOf(book1, book2, book3))
             println("Sample books added to the database!")
+        }
+        if (userRepository.count() == 0L) {
+            val user = User(
+                username = "user",
+                passwordHash = passwordEncoder.encode("password"),
+                email = "user@example.com",
+                role = "USER"
+            )
+            val admin = User(
+                username = "admin",
+                passwordHash = passwordEncoder.encode("password"),
+                email = "admin@example.com",
+                role = "ADMIN"
+            )
+            userRepository.save(user)
+            userRepository.save(admin)
+            println("Sample users added to the database!")
         }
     }
 }
