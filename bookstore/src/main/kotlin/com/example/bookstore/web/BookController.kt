@@ -63,4 +63,9 @@ class BookController {
         model.addAttribute("books", bookRepository.findAll())
         return "booklist"
     }
+
+    @GetMapping("/login")
+    fun login(): String {
+        return "login"
+    }
 }
