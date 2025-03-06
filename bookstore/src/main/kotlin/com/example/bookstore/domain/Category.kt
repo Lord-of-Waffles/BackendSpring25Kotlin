@@ -13,6 +13,6 @@ data class Category(
     var name: String = ""
 ) {
     @JsonIgnore
-    @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var books: List<Book> = mutableListOf()
+    @OneToMany(mappedBy = "category", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, orphanRemoval = true)
+    var books: MutableList<Book> = mutableListOf()
 }
